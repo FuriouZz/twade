@@ -16,7 +16,7 @@
     "esbuild": "^0.25.10"
   },
   "dependencies": {
-    "transformers": "../transformers"
+    "transformers": "link:../transformers"
   },
   "bin": "./dist/main.js"
 }
