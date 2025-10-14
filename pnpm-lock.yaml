@@ -6,26 +6,17 @@ settings:
 
 importers:
 
-  .:
-    dependencies:
-      cli:
-        specifier: workspace:./packages/cli
-        version: link:packages/cli
-      plugins:
-        specifier: workspace:./packages/plugins
-        version: link:packages/plugins
-      transformers:
-        specifier: workspace:./packages/transformers
-        version: link:packages/transformers
+  .: {}
 
   packages/cli:
+    dependencies:
+      transformers:
+        specifier: ../transformers
+        version: link:../transformers
     devDependencies:
       esbuild:
         specifier: ^0.25.10
         version: 0.25.10
-      transformers:
-        specifier: workspace:transformers
-        version: link:../transformers
 
   packages/plugins:
     dependencies:
