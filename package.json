@@ -1,5 +1,5 @@
 {
-  "name": "trois-d-tools",
+  "name": "twade",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +9,7 @@
     "plugins": "workspace:./packages/plugins"
   },
   "bin": {
-    "troisd": "./packages/cli/dist/main.js"
+    "twade": "./packages/cli/dist/main.js"
   },
   "exports": {
     "transformers.js": {
