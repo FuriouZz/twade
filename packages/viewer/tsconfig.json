@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+
     "target": "ES2022",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": ["ES2022", "DOM"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -20,7 +22,7 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-
+    
     /* alias */
     "baseUrl": "./",
     "paths": {
@@ -31,5 +33,5 @@
     "jsx": "react-jsx",
     "jsxImportSource": "@/lib/jsx"
   },
-  "include": ["src"]
+  "include": ["src", "build.ts"]
 }

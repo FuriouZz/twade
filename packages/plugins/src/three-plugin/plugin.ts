@@ -36,7 +36,6 @@ export function threePlugin(userOptions: Partial<Options>) {
 
 	const copy = async () => {
 		const { libraries } = options;
-
 		const srcDir = resolve(
 			isAbsolute(options.srcDir)
 				? options.srcDir

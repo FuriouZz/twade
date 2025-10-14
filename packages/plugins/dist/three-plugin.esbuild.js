@@ -31,12 +31,13 @@ function threePlugin(userOptions) {
 }
 
 // src/three-plugin/esbuild.ts
+import { cwd as cwd2 } from "node:process";
 function esbuildThreePlugin(userOptions) {
   return {
     name: "three-plugin",
     async setup(build) {
       const plugin = threePlugin({
-        rootDir: build.initialOptions.absWorkingDir,
+        rootDir: build.initialOptions.absWorkingDir ?? cwd2(),
         ...userOptions
       });
       await plugin.copy();

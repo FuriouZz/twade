@@ -1,12 +1,13 @@
-import { join } from "node:path";
-import { cwd } from "node:process";
-import { defineConfig } from "vite";
-import threePlugin from "../vite-plugins/three-plugin";
+import { context } from "esbuild";
+import threePlugin from "plugins/three-plugin.esbuild.js";
 
-export default defineConfig({
+const ctx = await context({
+	entryPoints: ["./src/main.ts"],
+	outdir: "public/build",
+	bundle: true,
 	plugins: [
 		threePlugin({
-			externals: [
+			libraries: [
 				// BASIS
 				"basis/basis_transcoder.js",
 				"basis/basis_transcoder.wasm",
@@ -23,9 +24,10 @@ export default defineConfig({
 			],
 		}),
 	],
-	resolve: {
-		alias: {
-			"@": join(cwd(), "./src"),
-		},
-	},
 });
+
+const { hosts, port } = await ctx.serve({
+	servedir: "public",
+});
+
+console.log(hosts.map((host) => `http://${host}:${port}`).join("\n"));

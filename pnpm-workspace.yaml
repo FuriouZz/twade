@@ -2,6 +2,7 @@ packages:
   - packages/cli
   - packages/plugins
   - packages/transformers
+  - packages/viewer
 onlyBuiltDependencies:
   - esbuild
   - sharp

@@ -11,7 +11,7 @@ importers:
   packages/cli:
     dependencies:
       transformers:
-        specifier: ../transformers
+        specifier: link:../transformers
         version: link:../transformers
     devDependencies:
       esbuild:
@@ -67,6 +67,36 @@ importers:
         specifier: ~5.9.3
         version: 5.9.3
 
+  packages/viewer2:
+    dependencies:
+      '@furiouzz/reactive':
+        specifier: 2.0.0-beta.2
+        version: 2.0.0-beta.2
+      '@monogrid/gainmap-js':
+        specifier: ^3.1.0
+        version: 3.1.0(three@0.180.0)
+      '@types/draco3dgltf':
+        specifier: ^1.4.3
+        version: 1.4.3
+      '@types/node':
+        specifier: ^24.5.1
+        version: 24.5.2
+      '@types/three':
+        specifier: ^0.180.0
+        version: 0.180.0
+      esbuild:
+        specifier: ^0.25.10
+        version: 0.25.10
+      plugins:
+        specifier: link:../plugins
+        version: link:../plugins
+      three:
+        specifier: ^0.180.0
+        version: 0.180.0
+      typescript:
+        specifier: ~5.9.3
+        version: 5.9.3
+
 packages:
 
   '@colors/colors@1.5.0':
@@ -79,6 +109,9 @@ packages:
 
   '@dabh/diagnostics@2.0.3':
     resolution: {integrity: sha512-hrlQOIi7hAfzsMqlGSFyVucrx38O+j6wiGOf//H2ecvIEqYN4ADBSS2iLMh5UFyDunCNniUIPk/q3riFv45xRA==}
+
+  '@dimforge/rapier3d-compat@0.12.0':
+    resolution: {integrity: sha512-uekIGetywIgopfD97oDL5PfeezkFpNhwlzlaEYNOA0N6ghdsOvh/HYjSMek5Q2O1PYvRSDFcqFVJl4r4ZBwOow==}
 
   '@donmccurdy/caporal@0.0.10':
     resolution: {integrity: sha512-VdaJjOqYFYcDTM5We2x8cL+B+U9UFQvq0iW2ypqEGX31SDf2oYFjEg7INEJorBwJJnFNXV8jXoYGzJyLeYl1EQ==}
@@ -242,6 +275,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@furiouzz/reactive@2.0.0-beta.2':
+    resolution: {integrity: sha512-cVZzRGrEXElIJzT8OfS3OFLxhcZlZJPm4zJRZmbjKDxehAk6sslCGPvceO7t4kMiixDdMs+rdlAFDPTsCRikCg==}
 
   '@gltf-transform/cli@4.2.1':
     resolution: {integrity: sha512-xnN8oJVQx4Sj3YX1uFkAR1dZ5PD8eEfh6BVijbGyI6XIbCb4CgAPm2x54NVbKWJTnapqoe1kyMxnfdzdKr0OEw==}
@@ -501,6 +537,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@tweenjs/tween.js@23.1.3':
+    resolution: {integrity: sha512-vJmvvwFxYuGnF2axRtPYocag6Clbb5YS7kLL+SO/TeVFzHqDIWrNKYtcsPMibjDx9O+bu+psAy9NKfWklassUA==}
+
   '@types/braces@3.0.5':
     resolution: {integrity: sha512-SQFof9H+LXeWNz8wDe7oN5zu7ket0qwMu5vZubW4GCJ8Kkeh6nBWUz87+KTz/G3Kqsrp0j/W253XJb3KMEeg3w==}
 
@@ -546,8 +585,14 @@ packages:
   '@types/spdx-correct@3.1.3':
     resolution: {integrity: sha512-fdQ0oyqcKpAH+FwNEerZl1oTslsrhFYhdbb21IO1FKXK/+TFYM2IO1c/Nvsh7MCPVp8TYEAPXIOlXUJRkWoUWQ==}
 
+  '@types/stats.js@0.17.4':
+    resolution: {integrity: sha512-jIBvWWShCvlBqBNIZt0KAshWpvSjhkwkEu4ZUcASoAvhmrgAUI2t1dXrjSL4xXVLB4FznPrIsX3nKXFl/Dt4vA==}
+
   '@types/table@5.0.0':
     resolution: {integrity: sha512-fQLtGLZXor264zUPWI95WNDsZ3QV43/c0lJpR/h1hhLJumXRmHNsrvBfEzW2YMhb0EWCsn4U6h82IgwsajAuTA==}
+
+  '@types/three@0.180.0':
+    resolution: {integrity: sha512-ykFtgCqNnY0IPvDro7h+9ZeLY+qjgUWv+qEvUt84grhenO60Hqd4hScHE7VTB9nOQ/3QM8lkbNE+4vKjEpUxKg==}
 
   '@types/tmp@0.2.6':
     resolution: {integrity: sha512-chhaNf2oKHlRkDGt+tiKE2Z5aJ6qalm7Z9rlLdBwmOiAAf09YQvvoLXjWK4HWPF1xU/fqvMgfNfpVoBscA/tKA==}
@@ -555,9 +600,15 @@ packages:
   '@types/triple-beam@1.3.5':
     resolution: {integrity: sha512-6WaYesThRMCl19iryMYP7/x2OVgCtbIVflDGFpWnb9irXI3UjYE4AzmYuiUKY1AJstGijoY+MgUszMgRxIYTYw==}
 
+  '@types/webxr@0.5.24':
+    resolution: {integrity: sha512-h8fgEd/DpoS9CBrjEQXR+dIDraopAEfu4wYVNY2tEPwk60stPWhvZMf4Foo5FakuQ7HFZoa8WceaWFervK2Ovg==}
+
   '@types/wrap-ansi@8.1.0':
     resolution: {integrity: sha512-Pt0qXwu5s9KKODY8bB93mwgOsUvkCOGt//kvHGMaUZi0u//Yge5X5/iME08eSU+Oxf9sZlwAFaJwORDSIjd8pw==}
     deprecated: This is a stub types definition. wrap-ansi provides its own type definitions, so you do not need this installed.
+
+  '@webgpu/types@0.1.66':
+    resolution: {integrity: sha512-YA2hLrwLpDsRueNDXIMqN9NTzD6bCDkuXbOSe0heS+f8YE8usA6Gbv1prj81pzVHrbaAma7zObnIC+I6/sXJgA==}
 
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
@@ -759,6 +810,9 @@ packages:
     resolution: {integrity: sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ==}
     engines: {node: ^12.20 || >= 14.13}
 
+  fflate@0.8.2:
+    resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
+
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
     engines: {node: '>=8'}
@@ -925,6 +979,9 @@ packages:
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
+
+  meshoptimizer@0.22.0:
+    resolution: {integrity: sha512-IebiK79sqIy+E4EgOr+CAw+Ke8hAspXKzBd0JdgEmPHiAwmvEj2S4h1rfvo+o/BnfEYd/jAOg5IeeIjzlzSnDg==}
 
   meshoptimizer@0.24.0:
     resolution: {integrity: sha512-Iq/8cM5cK2B0P0QdKHexr30zEJn5sQxjXKtQJGp6LO7r1VUPwhgxau18pvybVDnEDsKE49GdlJYwqPX9A/P9Sw==}
@@ -1299,6 +1356,8 @@ snapshots:
       enabled: 2.0.0
       kuler: 2.0.0
 
+  '@dimforge/rapier3d-compat@0.12.0': {}
+
   '@donmccurdy/caporal@0.0.10':
     dependencies:
       '@types/glob': 8.1.0
@@ -1395,6 +1454,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.10':
     optional: true
+
+  '@furiouzz/reactive@2.0.0-beta.2': {}
 
   '@gltf-transform/cli@4.2.1':
     dependencies:
@@ -1616,6 +1677,8 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.50.2':
     optional: true
 
+  '@tweenjs/tween.js@23.1.3': {}
+
   '@types/braces@3.0.5': {}
 
   '@types/draco3d@1.4.10': {}
@@ -1661,15 +1724,31 @@ snapshots:
 
   '@types/spdx-correct@3.1.3': {}
 
+  '@types/stats.js@0.17.4': {}
+
   '@types/table@5.0.0': {}
+
+  '@types/three@0.180.0':
+    dependencies:
+      '@dimforge/rapier3d-compat': 0.12.0
+      '@tweenjs/tween.js': 23.1.3
+      '@types/stats.js': 0.17.4
+      '@types/webxr': 0.5.24
+      '@webgpu/types': 0.1.66
+      fflate: 0.8.2
+      meshoptimizer: 0.22.0
 
   '@types/tmp@0.2.6': {}
 
   '@types/triple-beam@1.3.5': {}
 
+  '@types/webxr@0.5.24': {}
+
   '@types/wrap-ansi@8.1.0':
     dependencies:
       wrap-ansi: 9.0.2
+
+  '@webgpu/types@0.1.66': {}
 
   ajv@6.12.6:
     dependencies:
@@ -1875,6 +1954,8 @@ snapshots:
       node-domexception: 1.0.0
       web-streams-polyfill: 3.3.3
 
+  fflate@0.8.2: {}
+
   fill-range@7.1.1:
     dependencies:
       to-regex-range: 5.0.1
@@ -2036,6 +2117,8 @@ snapshots:
   lru-cache@10.4.3: {}
 
   math-intrinsics@1.1.0: {}
+
+  meshoptimizer@0.22.0: {}
 
   meshoptimizer@0.24.0: {}
 

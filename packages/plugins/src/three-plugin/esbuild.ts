@@ -1,5 +1,6 @@
 import type { Plugin } from "esbuild";
 import { type Options, threePlugin } from "./plugin";
+import { cwd } from "node:process";
 
 export default function esbuildThreePlugin(
 	userOptions: Partial<Options>,
@@ -8,7 +9,7 @@ export default function esbuildThreePlugin(
 		name: "three-plugin",
 		async setup(build) {
 			const plugin = threePlugin({
-				rootDir: build.initialOptions.absWorkingDir,
+				rootDir: build.initialOptions.absWorkingDir ?? cwd(),
 				...userOptions,
 			});
 
