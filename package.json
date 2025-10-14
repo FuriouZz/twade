@@ -7,15 +7,27 @@
     "twade": "./packages/cli/dist/main.js"
   },
   "exports": {
-    "transformers.js": {
+    "./transformers.js": {
       "types": "./packages/transformers/dist/types/lib.d.ts",
       "default": "./packages/transformers/dist/lib.js"
     },
-    "plugins/three-plugin.vite.js": {
+    "./transformers": {
+      "types": "./packages/transformers/dist/types/lib.d.ts",
+      "default": "./packages/transformers/dist/lib.js"
+    },
+    "./plugins/three-plugin.vite.js": {
       "types": "./packages/plugins/dist/types/vite.d.ts",
       "default": "./packages/plugins/dist/three-plugin.vite.js"
     },
-    "plugins/three-plugin.esbuild.js": {
+    "./plugins/three-plugin.vite": {
+      "types": "./packages/plugins/dist/types/vite.d.ts",
+      "default": "./packages/plugins/dist/three-plugin.vite.js"
+    },
+    "./plugins/three-plugin.esbuild.js": {
+      "types": "./packages/plugins/dist/types/esbuild.d.ts",
+      "default": "./packages/plugins/dist/three-plugin.esbuild.js"
+    },
+    "./plugins/three-plugin.esbuild": {
       "types": "./packages/plugins/dist/types/esbuild.d.ts",
       "default": "./packages/plugins/dist/three-plugin.esbuild.js"
     }
