@@ -3,11 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "dependencies": {
-    "cli": "workspace:./packages/cli",
-    "transformers": "workspace:./packages/transformers",
-    "plugins": "workspace:./packages/plugins"
-  },
   "bin": {
     "twade": "./packages/cli/dist/main.js"
   },
