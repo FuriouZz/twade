@@ -3,33 +3,25 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "bin": {
-    "twade": "./packages/cli/dist/main.js"
+  "devDependencies": {
+    "@types/draco3dgltf": "^1.4.3",
+    "@types/node": "^24.5.1",
+    "@types/three": "^0.180.0",
+    "@furiouzz/reactive": "2.0.0-beta.2",
+    "@monogrid/gainmap-js": "^3.1.0",
+    "esbuild": "^0.25.10",
+    "three": "^0.180.0",
+    "typescript": "~5.9.3"
   },
-  "exports": {
-    "./transformers.js": {
-      "types": "./packages/transformers/dist/types/lib.d.ts",
-      "default": "./packages/transformers/dist/lib.js"
-    },
-    "./transformers": {
-      "types": "./packages/transformers/dist/types/lib.d.ts",
-      "default": "./packages/transformers/dist/lib.js"
-    },
-    "./plugins/three-plugin.vite.js": {
-      "types": "./packages/plugins/dist/types/vite.d.ts",
-      "default": "./packages/plugins/dist/three-plugin.vite.js"
-    },
-    "./plugins/three-plugin.vite": {
-      "types": "./packages/plugins/dist/types/vite.d.ts",
-      "default": "./packages/plugins/dist/three-plugin.vite.js"
-    },
-    "./plugins/three-plugin.esbuild.js": {
-      "types": "./packages/plugins/dist/types/esbuild.d.ts",
-      "default": "./packages/plugins/dist/three-plugin.esbuild.js"
-    },
-    "./plugins/three-plugin.esbuild": {
-      "types": "./packages/plugins/dist/types/esbuild.d.ts",
-      "default": "./packages/plugins/dist/three-plugin.esbuild.js"
-    }
+  "dependencies": {
+    "@gltf-transform/cli": "^4.2.1",
+    "@gltf-transform/core": "^4.2.1",
+    "@gltf-transform/extensions": "^4.2.1",
+    "@gltf-transform/functions": "^4.2.1",
+    "@hono/node-server": "^1.19.5",
+    "draco3dgltf": "^1.5.7",
+    "hono": "^4.9.12",
+    "playwright": "^1.55.0",
+    "sharp": "^0.34.4"
   }
 }

@@ -1,0 +1,58 @@
+{
+  "name": "@furiouzz/twade",
+  "version": "0.0.1",
+  "type": "module",
+  "bin": {
+    "twade-viewer": "./dist/bin/twade-viewer.js",
+    "twade-transform": "./dist/bin/twade-transform.js"
+  },
+  "exports": {
+    "./plugins/three-plugin.vite.js": {
+      "types": "./dist/types/plugins/three-plugin.vite.d.ts",
+      "default": "./dist/plugins/three-plugin.vite.js"
+    },
+    "./plugins/three-plugin.vite": {
+      "types": "./dist/types/plugins/three-plugin.vite.d.ts",
+      "default": "./dist/plugins/three-plugin.vite.js"
+    },
+    "./plugins/three-plugin.js": {
+      "types": "./dist/types/plugins/three-plugin.d.ts",
+      "default": "./dist/plugins/three-plugin.js"
+    },
+    "./plugins/three-plugin": {
+      "types": "./dist/types/plugins/three-plugin.d.ts",
+      "default": "./dist/plugins/three-plugin.js"
+    },
+    "./plugins/three-plugin.esbuild.js": {
+      "types": "./dist/types/plugins/three-plugin.esbuild.d.ts",
+      "default": "./dist/plugins/three-plugin.esbuild.js"
+    },
+    "./plugins/three-plugin.esbuild": {
+      "types": "./dist/types/plugins/three-plugin.esbuild.d.ts",
+      "default": "./dist/plugins/three-plugin.esbuild.js"
+    },
+    "./transformers.js": {
+      "types": "./dist/types/transformers/lib.d.ts",
+      "default": "./dist/transformers/lib.js"
+    },
+    "./transformers": {
+      "types": "./dist/types/transformers/lib.d.ts",
+      "default": "./dist/transformers/lib.js"
+    }
+  },
+  "peerDependencies": {
+    "esbuild": "^0.25.0",
+    "vite": "^7.0.0"
+  },
+  "dependencies": {
+    "@gltf-transform/cli": "^4.2.1",
+    "@gltf-transform/core": "^4.2.1",
+    "@gltf-transform/extensions": "^4.2.1",
+    "@gltf-transform/functions": "^4.2.1",
+    "@hono/node-server": "^1.19.5",
+    "draco3dgltf": "^1.5.7",
+    "hono": "^4.9.12",
+    "playwright": "^1.55.0",
+    "sharp": "^0.34.4"
+  }
+}
