@@ -7,7 +7,7 @@ import { Hono } from "hono";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = new Hono();
-app.use("/*", serveStatic({ root: join(__dirname, "../browser/viewer") }));
+app.use("/*", serveStatic({ root: join(__dirname, "../viewer") }));
 
 const type = serve(app);
 console.log("opened server on ", type.address());

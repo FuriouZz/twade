@@ -9,35 +9,35 @@
   "exports": {
     "./plugins/three-plugin.vite.js": {
       "types": "./dist/types/plugins/three-plugin.vite.d.ts",
-      "default": "./dist/plugins/three-plugin.vite.js"
+      "default": "./dist/node/plugins/three-plugin.vite.js"
     },
     "./plugins/three-plugin.vite": {
       "types": "./dist/types/plugins/three-plugin.vite.d.ts",
-      "default": "./dist/plugins/three-plugin.vite.js"
+      "default": "./dist/node/plugins/three-plugin.vite.js"
     },
     "./plugins/three-plugin.js": {
       "types": "./dist/types/plugins/three-plugin.d.ts",
-      "default": "./dist/plugins/three-plugin.js"
+      "default": "./dist/node/plugins/three-plugin.js"
     },
     "./plugins/three-plugin": {
       "types": "./dist/types/plugins/three-plugin.d.ts",
-      "default": "./dist/plugins/three-plugin.js"
+      "default": "./dist/node/plugins/three-plugin.js"
     },
     "./plugins/three-plugin.esbuild.js": {
       "types": "./dist/types/plugins/three-plugin.esbuild.d.ts",
-      "default": "./dist/plugins/three-plugin.esbuild.js"
+      "default": "./dist/node/plugins/three-plugin.esbuild.js"
     },
     "./plugins/three-plugin.esbuild": {
       "types": "./dist/types/plugins/three-plugin.esbuild.d.ts",
-      "default": "./dist/plugins/three-plugin.esbuild.js"
+      "default": "./dist/node/plugins/three-plugin.esbuild.js"
     },
     "./transformers.js": {
       "types": "./dist/types/transformers/lib.d.ts",
-      "default": "./dist/transformers/lib.js"
+      "default": "./dist/node/transformers/lib.js"
     },
     "./transformers": {
       "types": "./dist/types/transformers/lib.d.ts",
-      "default": "./dist/transformers/lib.js"
+      "default": "./dist/node/transformers/lib.js"
     }
   },
   "peerDependencies": {

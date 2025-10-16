@@ -17,7 +17,7 @@ import { OrbitControls } from "three/examples/jsm/Addons.js";
 import { usePixelRatio } from "@/composables/usePixelRatio";
 import { useResize } from "@/composables/useWindowResize";
 import Loader from "@/lib/gl/Loader";
-
+import DefaultEnv from "../assets/env.exr?url";
 import { DropZoneComponent } from "./DropZoneComponent";
 import css from "./WebGLComponent.module.css";
 
@@ -127,7 +127,7 @@ export async function WebGLComponent() {
 		}
 
 		if (!envMap()) {
-			const DefaultMap = await loader.exr("/assets/env.exr");
+			const DefaultMap = await loader.exr(DefaultEnv);
 			envMap(DefaultMap);
 		}
 	}

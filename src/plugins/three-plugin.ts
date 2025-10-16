@@ -45,11 +45,9 @@ export function threePlugin(userOptions: Partial<Options>): {
 				: join(options.rootDir, options.srcDir),
 		);
 
-		const outDir = resolve(
-			isAbsolute(options.outDir)
-				? options.outDir
-				: join(options.rootDir, options.outDir),
-		);
+		const outDir = isAbsolute(options.outDir)
+			? options.outDir
+			: join(options.rootDir, options.outDir);
 
 		for (const library of libraries) {
 			const absInput = join(srcDir, library);

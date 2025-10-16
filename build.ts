@@ -1,51 +1,36 @@
-import { cpSync, rmSync, writeFileSync } from "node:fs";
+import { rmSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
-import { build } from "esbuild";
+import { cwd } from "node:process";
+import { buildForNode, buildForWeb, getPackage } from "./scripts/functions.ts";
 import threePlugin from "./src/plugins/three-plugin.esbuild.ts";
 import { findFiles } from "./src/transformers/utils/file.ts";
 import { transformPath } from "./src/transformers/utils/path.ts";
 
-const DST_DIR = "./publish/dist";
+const DST_DIR = join(cwd(), "./publish/dist");
 
 rmSync(DST_DIR, { recursive: true, force: true });
 
-// Build for node
-await build({
+await buildForNode({
 	entryPoints: {
 		// BINS
 		"bin/twade-transform": "./src/transformers/main.ts",
 		"bin/twade-viewer": "./src/viewer/main.ts",
 		// LIBRARIES
-		"transformers/lib": "./src/transformers/lib.ts",
-		"plugins/three-plugin": "./src/plugins/three-plugin.ts",
-		"plugins/three-plugin.vite": "./src/plugins/three-plugin.vite.ts",
-		"plugins/three-plugin.esbuild": "./src/plugins/three-plugin.esbuild.ts",
+		"node/transformers/lib": "./src/transformers/lib.ts",
+		"node/plugins/three-plugin": "./src/plugins/three-plugin.ts",
+		"node/plugins/three-plugin.vite": "./src/plugins/three-plugin.vite.ts",
+		"node/plugins/three-plugin.esbuild":
+			"./src/plugins/three-plugin.esbuild.ts",
 	},
-	bundle: true,
-	splitting: true,
-	target: "node20",
-	format: "esm",
 	outdir: DST_DIR,
-	platform: "node",
-	packages: "external",
 });
 
-// Build for browser
-cpSync("./src/viewer/public", join(DST_DIR, "browser/viewer"), {
-	recursive: true,
-	force: true,
-});
-
-await build({
-	entryPoints: {
-		main: "./src/viewer/src/main.ts",
-	},
-	bundle: true,
-	splitting: true,
-	format: "esm",
-	outdir: join(DST_DIR, "browser/viewer"),
+await buildForWeb({
+	entryPoints: ["./src/viewer/index.html"],
+	outdir: join(DST_DIR, "web/viewer"),
 	plugins: [
 		threePlugin({
+			outDir: join(DST_DIR, "web/viewer/three"),
 			libraries: [
 				// BASIS
 				"basis/basis_transcoder.js",
@@ -65,15 +50,7 @@ await build({
 	],
 });
 
-async function getPackage(path: string) {
-	const { default: pkg } = (await import(path, {
-		with: { type: "json" },
-		// biome-ignore lint/suspicious/noExplicitAny: idk>
-	})) as { default: any };
-	return pkg;
-}
-
-const pkg = await getPackage("./publish/package.json");
+const pkg = await getPackage(join(DST_DIR, "../package.json"));
 pkg.bin = {};
 pkg.exports = {};
 pkg.dependencies = {};
@@ -81,8 +58,7 @@ pkg.dependencies = {};
 const files = findFiles(DST_DIR)
 	.map((f) => `./${relative("./publish", f)}`)
 	.filter(
-		(f) =>
-			f.endsWith(".js") && !f.includes("chunk-") && !f.includes("/browser/"),
+		(f) => f.endsWith(".js") && !f.includes("chunk-") && !f.includes("/web/"),
 	);
 
 for (const file of files) {
@@ -102,14 +78,16 @@ for (const file of files) {
 		input = `${dirname(input)}.js`;
 	}
 
-	const types = transformPath(file.replace("dist/", "dist/types/"), {
+	input = input.replace("/node/", "/");
+
+	const types = transformPath(file.replace("/node/", "/types/"), {
 		ext: ".d.ts",
 	});
 	pkg.exports[input] = { types, default: file };
 	pkg.exports[input.replace(".js", "")] = { types, default: file };
 }
 
-const root = await getPackage("./package.json");
+const root = await getPackage(join(cwd(), "package.json"));
 pkg.dependencies = root.dependencies;
 
 writeFileSync("./publish/package.json", JSON.stringify(pkg, null, 2));

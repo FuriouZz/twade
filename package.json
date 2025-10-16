@@ -3,12 +3,23 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "scripts": {
+    "build:libs": "node build.ts",
+    "build:types": "tsc -p tsconfig.json",
+    "build:package": "npm run build:libs && npm run build:types"
+  },
+  "peerDependencies": {
+    "esbuild": "^0.25.0",
+    "vite": "^7.0.0"
+  },
   "devDependencies": {
+    "@chialab/esbuild-plugin-html": "^0.19.0",
+    "@chialab/esbuild-plugin-meta-url": "^0.19.0",
+    "@furiouzz/reactive": "2.0.0-beta.2",
+    "@monogrid/gainmap-js": "^3.1.0",
     "@types/draco3dgltf": "^1.4.3",
     "@types/node": "^24.5.1",
     "@types/three": "^0.180.0",
-    "@furiouzz/reactive": "2.0.0-beta.2",
-    "@monogrid/gainmap-js": "^3.1.0",
     "esbuild": "^0.25.10",
     "three": "^0.180.0",
     "typescript": "~5.9.3"
