@@ -3,7 +3,7 @@ import { dirname, join, relative } from "node:path";
 import { cwd } from "node:process";
 import { buildForNode, buildForWeb, getPackage } from "./scripts/functions.ts";
 import threePlugin from "./src/plugins/three-plugin.esbuild.ts";
-import { findFiles } from "./src/transformers/utils/file.ts";
+import { findFiles, ls } from "./src/transformers/utils/file.ts";
 import { transformPath } from "./src/transformers/utils/path.ts";
 
 const DST_DIR = join(cwd(), "./publish/dist");
@@ -55,7 +55,7 @@ pkg.bin = {};
 pkg.exports = {};
 pkg.dependencies = {};
 
-const files = findFiles(DST_DIR)
+const files = findFiles(`${DST_DIR}/**/*`)
 	.map((f) => `./${relative("./publish", f)}`)
 	.filter(
 		(f) => f.endsWith(".js") && !f.includes("chunk-") && !f.includes("/web/"),

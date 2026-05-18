@@ -1,19 +1,19 @@
 {
 	"name": "@furiouzz/twade",
-	"version": "0.0.3",
+	"version": "0.0.8",
 	"type": "module",
 	"bin": {
-		"twade-viewer": "./dist/bin/twade-viewer.js",
-		"twade-transform": "./dist/bin/twade-transform.js"
+		"twade-transform": "./dist/bin/twade-transform.js",
+		"twade-viewer": "./dist/bin/twade-viewer.js"
 	},
 	"exports": {
-		"./plugins/three-plugin.vite.js": {
-			"types": "./dist/types/plugins/three-plugin.vite.d.ts",
-			"default": "./dist/node/plugins/three-plugin.vite.js"
+		"./plugins/three-plugin.esbuild.js": {
+			"types": "./dist/types/plugins/three-plugin.esbuild.d.ts",
+			"default": "./dist/node/plugins/three-plugin.esbuild.js"
 		},
-		"./plugins/three-plugin.vite": {
-			"types": "./dist/types/plugins/three-plugin.vite.d.ts",
-			"default": "./dist/node/plugins/three-plugin.vite.js"
+		"./plugins/three-plugin.esbuild": {
+			"types": "./dist/types/plugins/three-plugin.esbuild.d.ts",
+			"default": "./dist/node/plugins/three-plugin.esbuild.js"
 		},
 		"./plugins/three-plugin.js": {
 			"types": "./dist/types/plugins/three-plugin.d.ts",
@@ -23,13 +23,13 @@
 			"types": "./dist/types/plugins/three-plugin.d.ts",
 			"default": "./dist/node/plugins/three-plugin.js"
 		},
-		"./plugins/three-plugin.esbuild.js": {
-			"types": "./dist/types/plugins/three-plugin.esbuild.d.ts",
-			"default": "./dist/node/plugins/three-plugin.esbuild.js"
+		"./plugins/three-plugin.vite.js": {
+			"types": "./dist/types/plugins/three-plugin.vite.d.ts",
+			"default": "./dist/node/plugins/three-plugin.vite.js"
 		},
-		"./plugins/three-plugin.esbuild": {
-			"types": "./dist/types/plugins/three-plugin.esbuild.d.ts",
-			"default": "./dist/node/plugins/three-plugin.esbuild.js"
+		"./plugins/three-plugin.vite": {
+			"types": "./dist/types/plugins/three-plugin.vite.d.ts",
+			"default": "./dist/node/plugins/three-plugin.vite.js"
 		},
 		"./transformers.js": {
 			"types": "./dist/types/transformers/lib.d.ts",
@@ -51,6 +51,7 @@
 		"@gltf-transform/functions": "^4.2.1",
 		"@hono/node-server": "^1.19.5",
 		"draco3dgltf": "^1.5.7",
+		"filelist": "^2.0.2",
 		"hono": "^4.9.12",
 		"playwright": "^1.55.0",
 		"sharp": "^0.34.4"

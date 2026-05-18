@@ -1,15 +1,17 @@
 import { basename, dirname, extname, join } from "node:path";
 
+export interface TransformPathOptions {
+	dir?: string;
+	ext?: string;
+	base?: string;
+	prefix?: string;
+	suffix?: string;
+	prefixRelativePath?: boolean;
+}
+
 export function transformPath(
 	path: string,
-	options?: {
-		dir?: string;
-		ext?: string;
-		base?: string;
-		prefix?: string;
-		suffix?: string;
-		prefixRelativePath?: boolean;
-	},
+	options?: TransformPathOptions,
 ): string {
 	const ext = extname(path);
 	const base = basename(path, ext);

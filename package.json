@@ -32,6 +32,7 @@
     "@gltf-transform/functions": "^4.2.1",
     "@hono/node-server": "^1.19.5",
     "draco3dgltf": "^1.5.7",
+    "filelist": "^2.0.2",
     "hono": "^4.9.12",
     "playwright": "^1.55.0",
     "sharp": "^0.34.4"
