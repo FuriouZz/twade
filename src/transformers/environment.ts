@@ -1,15 +1,20 @@
 import { mkdirSync } from "node:fs";
-import { dirname, join, normalize, relative } from "node:path";
+import { join, normalize, relative } from "node:path";
 import { Asset } from "./asset";
 import { transformPath } from "./lib";
 import type { AssetConfig } from "./types";
 import { findFiles } from "./utils/file";
 import type { TransformPathOptions } from "./utils/path";
+import { ask, choices, prompt } from "./utils/prompt";
 
 export class Environment {
 	options: AssetConfig;
 	joinSourceDir: (asset: string | Asset) => string;
 	joinOutputDir: (asset: string | Asset) => string;
+
+	ask: typeof ask = ask;
+	choices: typeof choices = choices;
+	prompt: typeof prompt = prompt;
 
 	constructor(config: AssetConfig) {
 		this.options = config;
@@ -73,17 +78,10 @@ export class Environment {
 		pattern: string | Asset[],
 		cb: (asset: Asset) => Promise<T>,
 	): Promise<T[]> {
-		return Promise.all(
-			this.assets(pattern, cb).map((res) => {
-				return Promise.resolve(res);
-			}),
-		);
+		return Promise.all(this.assets(pattern, cb));
 	}
 
-	ensureDir = (asset: string | Asset): void => {
-		const dir = this.dst(
-			typeof asset === "string" ? asset : dirname(asset.output),
-		);
-		mkdirSync(join(dir), { recursive: true });
+	ensureDir = (path: string): void => {
+		mkdirSync(path, { recursive: true });
 	};
 }
