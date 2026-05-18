@@ -34,7 +34,7 @@ export async function optimizeModels(
 
 	for (const asset of assets) {
 		await asset.wrap(async () => {
-			const doc = await io.read(env.joinSourceDir(asset));
+			const doc = await io.read(env.src(asset));
 
 			await doc.transform(
 				draco(options.dracoOptions),
@@ -45,7 +45,7 @@ export async function optimizeModels(
 				}),
 			);
 
-			await io.write(env.joinOutputDir(asset.output), doc);
+			await io.write(env.dst(asset.output), doc);
 		});
 	}
 }

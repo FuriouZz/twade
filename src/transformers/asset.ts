@@ -6,10 +6,12 @@ import type { AssetConfig } from "./types";
 export class Asset {
 	input: string;
 	output: string;
+	path: string;
 
 	constructor(input: string, output: string) {
 		this.input = input;
 		this.output = output;
+		this.path = input;
 	}
 
 	async wrap(cb: Promise<unknown> | (() => Promise<unknown>)): Promise<void> {

@@ -11,7 +11,7 @@ async function convert(
 ): Promise<void> {
 	await page.reload();
 
-	await page.setInputFiles("input", env.joinSourceDir(asset));
+	await page.setInputFiles("input", env.src(asset));
 
 	await page.waitForFunction(() => () => {
 		const buttons = Array.from(document.querySelectorAll("button"));
@@ -30,7 +30,7 @@ async function convert(
 	]);
 
 	const output = transformPath(asset.output, { ext: "jpg" });
-	await download.saveAs(env.joinOutputDir(output));
+	await download.saveAs(env.dst(output));
 }
 
 export async function generateGainmap(

@@ -6,7 +6,8 @@
   "scripts": {
     "build:libs": "node build.ts",
     "build:types": "tsc -p tsconfig.json",
-    "build:package": "npm run build:libs && npm run build:types"
+    "build:package": "npm run build:libs && npm run build:types",
+    "publish": "cd publish && npm publish"
   },
   "peerDependencies": {
     "esbuild": "^0.25.0",

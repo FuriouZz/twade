@@ -6,12 +6,16 @@ import { getFiles } from "./utils/file";
 
 export class Environment {
 	options: AssetConfig;
+	joinSourceDir: (asset: string | Asset) => string;
+	joinOutputDir: (asset: string | Asset) => string;
 
 	constructor(config: AssetConfig) {
 		this.options = config;
+		this.joinSourceDir = this.src;
+		this.joinOutputDir = this.dst;
 	}
 
-	joinSourceDir = (asset: string | Asset): string => {
+	src = (asset: string | Asset): string => {
 		return normalize(
 			join(
 				this.options.srcDir,
@@ -20,8 +24,8 @@ export class Environment {
 		);
 	};
 
-	joinOutputDir = (asset: string | Asset): string => {
-		const absInput = this.joinSourceDir(asset);
+	dst = (asset: string | Asset): string => {
+		const absInput = this.src(asset);
 		return normalize(
 			absInput.replace(this.options.srcDir, this.options.dstDir),
 		);
@@ -39,8 +43,43 @@ export class Environment {
 		return assets;
 	};
 
+	assets(pattern: string | Asset[]): Asset[];
+	assets<T>(pattern: string | Asset[], cb: (asset: Asset) => T): T[];
+	assets<T>(pattern: string | Asset[], cb?: (asset: Asset) => T): T[] {
+		let assets: Asset[];
+
+		if (Array.isArray(pattern)) {
+			assets = pattern;
+		} else {
+			assets = getFiles(join(this.options.srcDir, pattern))
+				.filter((f) => !!f)
+				.map((absInput) => {
+					const input = relative(this.options.srcDir, absInput);
+					const asset = new Asset(input, input);
+					return asset;
+				});
+		}
+
+		if (cb) {
+			return assets.map((asset) => cb(asset));
+		}
+
+		return assets as T[];
+	}
+
+	async assetsAsync<T>(
+		pattern: string | Asset[],
+		cb: (asset: Asset) => Promise<T>,
+	): Promise<T[]> {
+		return Promise.all(
+			this.assets(pattern, cb).map((res) => {
+				return Promise.resolve(res);
+			}),
+		);
+	}
+
 	ensureDir = (asset: string | Asset): void => {
-		const dir = this.joinOutputDir(
+		const dir = this.dst(
 			typeof asset === "string" ? asset : dirname(asset.output),
 		);
 		mkdirSync(join(dir), { recursive: true });
