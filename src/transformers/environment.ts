@@ -1,11 +1,11 @@
 import { mkdirSync } from "node:fs";
 import { join, normalize, relative } from "node:path";
-import { Asset } from "./asset";
+import type { Asset } from "./asset";
 import { transformPath } from "./lib";
 import type { AssetConfig } from "./types";
 import { findFiles } from "./utils/file";
 import type { TransformPathOptions } from "./utils/path";
-import { ask, choices, prompt } from "./utils/prompt";
+import { ask, choices, prompt, singleChoice } from "./utils/prompt";
 
 export class Environment {
 	options: AssetConfig;
@@ -13,6 +13,7 @@ export class Environment {
 	joinOutputDir: (asset: string | Asset) => string;
 
 	ask: typeof ask = ask;
+	singleChoice: typeof singleChoice = singleChoice;
 	choices: typeof choices = choices;
 	prompt: typeof prompt = prompt;
 
@@ -38,18 +39,6 @@ export class Environment {
 		);
 	};
 
-	getAssets = (pattern: string): Asset[] => {
-		const files = findFiles(join(this.options.srcDir, pattern));
-		const assets: Asset[] = [];
-		for (const absInput of files) {
-			if (!absInput) continue;
-			const input = relative(this.options.srcDir, absInput);
-			const asset = new Asset(input, input);
-			assets.push(asset);
-		}
-		return assets;
-	};
-
 	assets(pattern: string | Asset[]): Asset[];
 	assets<T>(pattern: string | Asset[], cb: (asset: Asset) => T): T[];
 	assets<T>(pattern: string | Asset[], cb?: (asset: Asset) => T): T[] {
@@ -62,7 +51,7 @@ export class Environment {
 				.filter((f) => !!f)
 				.map((absInput) => {
 					const input = relative(this.options.srcDir, absInput);
-					const asset = new Asset(input, input);
+					const asset = { input, output: input };
 					return asset;
 				});
 		}

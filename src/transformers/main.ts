@@ -1,12 +1,23 @@
+import { statSync } from "node:fs";
 import { cwd } from "node:process";
-import { Asset } from "./asset";
+import { Environment } from "./environment";
 
-const files = ["js", "mjs", "ts", "mts"];
+const exts = ["js", "mjs", "ts", "mts"];
 
-for (const file of files) {
+for (const ext of exts) {
+	const path = `${cwd()}/assets.config.${ext}`;
+
 	try {
-		const { default: config } = await import(`${cwd()}/assets.config.${file}`);
-		Asset.process(config);
-		break;
-	} catch (_) {}
+		const stat = statSync(path);
+		if (!stat.isFile()) {
+			throw new Error("Is not a file");
+		}
+	} catch (_) {
+		continue;
+	}
+
+	const { default: config } = await import(path);
+	const env = new Environment(config);
+	await config.transform?.(env);
+	break;
 }

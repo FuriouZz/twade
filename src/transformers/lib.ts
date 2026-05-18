@@ -1,15 +1,16 @@
 export { FileList } from "filelist";
 export {
-	Asset,
+	type Asset,
 	defineAssetConfig,
 } from "./asset.ts";
 export { Environment } from "./environment.ts";
-export { generateGainmap } from "./transformers/generate-gainmap.ts";
+export { generateGainmap } from "./functions/generate-gainmap.ts";
 export {
+	gltfOptimize,
 	KTX2Mode,
 	type OptimizeModelsOptions,
-	optimizeModels,
-} from "./transformers/optimize-models.ts";
+} from "./functions/gltf-optimize.ts";
+export { ktx2Transform } from "./functions/ktx2-transform.ts";
 export { ensureDirSync, find, findFiles, ls } from "./utils/file.ts";
 export {
 	ceilMultipleOfFour,

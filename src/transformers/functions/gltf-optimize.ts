@@ -8,9 +8,7 @@ import { ALL_EXTENSIONS } from "@gltf-transform/extensions";
 import { type DracoOptions, draco } from "@gltf-transform/functions";
 import draco3d from "draco3dgltf";
 import sharp from "sharp";
-
 import type { Asset } from "../asset.ts";
-import type { Environment } from "../environment.ts";
 import { ktx2Transform } from "./ktx2-transform.ts";
 
 export interface OptimizeModelsOptions {
@@ -20,8 +18,7 @@ export interface OptimizeModelsOptions {
 
 export const KTX2Mode: typeof Mode = Mode;
 
-export async function optimizeModels(
-	env: Environment,
+export async function gltfOptimize(
 	assets: Asset[],
 	options: OptimizeModelsOptions = {},
 ): Promise<void> {
@@ -32,20 +29,18 @@ export async function optimizeModels(
 			"draco3d.encoder": await draco3d.createEncoderModule(), // Optional.
 		});
 
-	for (const asset of assets) {
-		await asset.wrap(async () => {
-			const doc = await io.read(env.src(asset));
+	for (const { input, output } of assets) {
+		const doc = await io.read(input);
 
-			await doc.transform(
-				draco(options.dracoOptions),
-				ktx2Transform({
-					encoder: sharp,
-					mode: Mode.ETC1S,
-					...options?.ktx2TransformOptions,
-				}),
-			);
+		await doc.transform(
+			draco(options.dracoOptions),
+			ktx2Transform({
+				encoder: sharp,
+				mode: Mode.ETC1S,
+				...options?.ktx2TransformOptions,
+			}),
+		);
 
-			await io.write(env.dst(asset.output), doc);
-		});
+		await io.write(output, doc);
 	}
 }

@@ -1,17 +1,12 @@
 import { chromium, type Page } from "playwright";
 
 import type { Asset } from "../asset.ts";
-import type { Environment } from "../environment.ts";
 import { transformPath } from "../utils/path.ts";
 
-async function convert(
-	env: Environment,
-	asset: Asset,
-	page: Page,
-): Promise<void> {
+async function convert(asset: Asset, page: Page): Promise<void> {
 	await page.reload();
 
-	await page.setInputFiles("input", env.src(asset));
+	await page.setInputFiles("input", asset.input);
 
 	await page.waitForFunction(() => () => {
 		const buttons = Array.from(document.querySelectorAll("button"));
@@ -30,13 +25,10 @@ async function convert(
 	]);
 
 	const output = transformPath(asset.output, { ext: "jpg" });
-	await download.saveAs(env.dst(output));
+	await download.saveAs(output);
 }
 
-export async function generateGainmap(
-	pipeline: Environment,
-	assets: Asset[],
-): Promise<void> {
+export async function generateGainmap(assets: Asset[]): Promise<void> {
 	const browser = await chromium.launch({
 		// headless: false,
 		// executablePath:
@@ -47,7 +39,7 @@ export async function generateGainmap(
 	await page.goto("https://gainmap-creator.monogrid.com/");
 
 	for (const asset of assets) {
-		await asset.wrap(convert(pipeline, asset, page));
+		await convert(asset, page);
 	}
 
 	await browser.close();

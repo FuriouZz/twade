@@ -7,16 +7,17 @@ export function prompt(
 	message: string,
 	userOptions?: PromptOptions,
 ): Promise<string> {
-	const options: Required<PromptOptions> = {
+	const options: PromptOptions = {
 		empty: false,
-		defaultAnswer: "",
 		...userOptions,
 	};
 
 	if ("defaultAnswer" in options) {
-		message = `${message} (Default: ${options.defaultAnswer})`;
+		message = `${message} (default: ${options.defaultAnswer})`;
 		options.empty = true;
 	}
+
+	message += " ";
 
 	return new Promise<string>((resolve) => {
 		process.stdin.resume();
@@ -29,7 +30,7 @@ export function prompt(
 
 			if (str.length === 0) {
 				if (options.empty) {
-					str = options.defaultAnswer;
+					str = options.defaultAnswer ?? "";
 				} else {
 					process.stdout.write(`Cannot be empty\n`);
 					process.stdout.write(message);
@@ -48,28 +49,48 @@ export function prompt(
 
 export async function ask(
 	message: string,
-	options?: PromptOptions,
+	userOptions?: PromptOptions,
 ): Promise<boolean> {
-	options = typeof options === "object" ? options : {};
+	const options: PromptOptions = {
+		defaultAnswer: "y",
+		empty: false,
+		...userOptions,
+	};
 
-	options.defaultAnswer = "y";
-	options.empty = true;
+	const answer = (
+		await singleChoice(message, ["y", "n"], options)
+	).toLowerCase();
+	return answer === "y";
+}
 
-	const answer = await choices(message, ["y", "yes", "n", "no"], options);
-	return !!answer.match(/^(y|yes)$/i);
+export async function singleChoice(
+	message: string,
+	answers: string[],
+	options?: PromptOptions,
+): Promise<string> {
+	const msg = `${message} [${answers.join("/")}]`;
+
+	let answer = "";
+	do {
+		answer = await prompt(msg, options);
+	} while (answers.indexOf(answer) === -1);
+	return answer;
 }
 
 export async function choices(
 	message: string,
 	answers: string[],
 	options?: PromptOptions,
-): Promise<string> {
-	message = `${message} [${answers.join("|")}] `;
+): Promise<string[]> {
+	const choices = answers
+		.map((value, index) => `${index + 1}) ${value}`)
+		.join("\n");
 
-	const answer = await prompt(message, options);
-	if (answers.indexOf(answer) === -1) {
-		process.stdout.write(`"${answer}" is an invalid answer\n`);
-		return prompt(message, options);
-	}
-	return answer;
+	const msg = `${message}\n${choices}`;
+
+	const answer = await prompt(msg, options);
+	return answer.split(" ").map((number) => {
+		const index = Number(number.trim()) - 1;
+		return answers[index];
+	});
 }

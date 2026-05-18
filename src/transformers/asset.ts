@@ -1,37 +1,10 @@
 import { isAbsolute, join } from "node:path";
 import { cwd, env, loadEnvFile } from "node:process";
-import { Environment } from "./environment";
 import type { AssetConfig } from "./types";
 
-export class Asset {
+export interface Asset {
 	input: string;
 	output: string;
-	path: string;
-
-	constructor(input: string, output: string) {
-		this.input = input;
-		this.output = output;
-		this.path = input;
-	}
-
-	async wrap(cb: Promise<unknown> | (() => Promise<unknown>)): Promise<void> {
-		console.log("process:", this.input);
-		const promise = typeof cb === "function" ? cb() : cb;
-		await promise.then(
-			() => {
-				console.log("created:", this.output);
-			},
-			(e) => {
-				console.log("failed to create:", this.output);
-				console.log(e);
-			},
-		);
-	}
-
-	static async process(config: AssetConfig): Promise<void> {
-		const env = new Environment(config);
-		await config.transform?.(env);
-	}
 }
 
 export function defineAssetConfig(

@@ -2,11 +2,14 @@ import {
 	defineAssetConfig,
 	generateGainmap,
 	optimizeModels,
-} from "./packages/transformer/src/index.ts";
+} from "./publish/dist/node/transformers/lib.js";
 
 export default defineAssetConfig({
-	async transform({ getAssets }) {
-		await generateGainmap(getAssets("*.{exr,hdr}"));
-		await optimizeModels(getAssets("*.glb"));
+	async transform(env) {
+		if (await env.ask("Let's go?")) {
+			console.log("cool");
+		}
+		// await generateGainmap(env, env.getAssets("*.{exr,hdr}"));
+		// await optimizeModels(env, env.getAssets("*.glb"));
 	},
 });

@@ -1,6 +1,6 @@
 {
 	"name": "@furiouzz/twade",
-	"version": "0.0.10",
+	"version": "0.0.13",
 	"type": "module",
 	"bin": {
 		"twade-transform": "./dist/bin/twade-transform.js",
